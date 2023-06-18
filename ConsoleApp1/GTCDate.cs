@@ -207,7 +207,8 @@ namespace ConsoleApp1
 			if (this.m_Year >= 10211)
 			{
 				offsetDays -= 93600;
-				GTCTimestamp = (offsetYear + offsetDays + this.m_Timestamp) * 1000;
+				GTCTimestamp = offsetYear + offsetDays + this.m_Timestamp;
+				GTCTimestamp *= 1000;
 			}
 			else
 			{
@@ -218,37 +219,40 @@ namespace ConsoleApp1
 				{
 					offsetSec = 93600 - this.m_Timestamp;
 				}
-				GTCTimestamp = (offsetYear + offsetDays + offsetSec) * 1000;
-				if (GTCTimestamp > 0)
-				{
-					GTCTimestamp *= -1;
-				}
+				GTCTimestamp = offsetYear + offsetDays + offsetSec;
+				GTCTimestamp *= 1000;
+				
 			}
-			long UTCTimestamp = 1293840000000L;
 			
 			UTCDate date = new UTCDate();
 
-			//Timestamp (millis) to date
-			long lTimeStamp = 0L;
-			if (UTCYear >= 0)
-			{
-				lTimeStamp = GTCTimestamp;
-			} else
-			{
-				lTimeStamp = UTCTimestamp + GTCTimestamp;
-			}
-			int lYear = (int)(Math.Floor((double)(lTimeStamp / 31536000000L)));
+			long lTimeStamp = GTCTimestamp;
+			
+			double dYear =(double)(lTimeStamp / 31536000000L);
+			int lYear = dYear > 0?(int)(Math.Floor(dYear)):(int)(Math.Ceiling(dYear));
+
 			lTimeStamp = lTimeStamp % 31536000000L;
-			int days = (int)Math.Floor((double)(lTimeStamp / 86400000));
+			double dDays = (double)(lTimeStamp / 86400000);
+			int days = dDays > 0?(int)Math.Floor(dDays):(int)Math.Ceiling(dDays);
+			if(days < 0){
+				days = 365 + days;
+			}
 
 			lTimeStamp = lTimeStamp % 86400000;
-			int lHour = (int)Math.Floor((double)(lTimeStamp / 3600000));
+			double dHour =(double)(lTimeStamp / 3600000);
+			int lHour = dHour>0?(int)Math.Floor(dHour):(int)Math.Ceiling(dHour);
+			if(lHour < 0){
+				lHour = 24 + lHour;
+			}
+
 			int lMin = (int)(lTimeStamp % 3600000);
 			lMin = (int)Math.Floor((double)(lMin / 60000));
 			int lSecond = (int)Math.Floor((double)(lMin % 60000 / 1000));
 
 			int[] tabDays = daysToUTCDate(days);
+
 			lYear += 2011;
+			
 			date.Date =new DateTime(lYear, tabDays[1],tabDays[0],lHour, lMin, lSecond);
 
 			return date;
