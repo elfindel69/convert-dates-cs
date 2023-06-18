@@ -38,7 +38,7 @@ namespace ConsoleApp1
 			lDate.Minute = (int)Math.Floor((double)(lMin / 60000));
 			lDate.Second = (int)Math.Floor((double)(lMin % 60000 / 1000));
 
-			lDate.Days = (int)(days + 1);
+            lDate.Days = (int)(days + 1);
 
 			if (lDate.Year < Utils.UTC_TO_GTC_YEAR)
 			{
