@@ -38,7 +38,7 @@ namespace ConsoleApp1
 					date2.TimeStringToGTCDate(timeGTC);
 					UTCDate date1 = date2.GTCDateToUTCDate();
 					affDates(date1.getUTCTimeString(), date2.getGTCTimeString(), date2.GTCDateToTC());
-					//TimeCode
+				
 				}
 				else if (choice == 3)
 				{
