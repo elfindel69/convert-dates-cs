@@ -8,8 +8,8 @@ namespace ConsoleApp1
 
 		public UTCDate(String strDate)
 		{
-
-			m_Date = DateTime.Parse(strDate);
+			strDate = strDate+"Z";
+			m_Date = DateTime.Parse(strDate).ToUniversalTime();
 		}
 
 		public UTCDate()
