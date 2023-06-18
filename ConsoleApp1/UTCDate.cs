@@ -66,7 +66,7 @@ namespace ConsoleApp1
 
 		public string getUTCTimeString()
 		{
-			string str = m_Date.ToUniversalTime().ToString("r");
+			string str = m_Date.ToString("r");
 			return str;
 		}
 	}
